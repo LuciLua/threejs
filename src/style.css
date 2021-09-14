@@ -9,7 +9,7 @@ body
 {
     height: 100vh;
     font-family: 'Poppins';
-    background-color: rgb(192, 192, 192);
+    background: linear-gradient(rgb(45, 46, 53), #000)
 }
 
 .webgl

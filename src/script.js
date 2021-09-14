@@ -4,6 +4,7 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
 import gsap from 'gsap'
+import { AmbientLight } from 'three'
 
 const gltfLoader = new GLTFLoader()
 
@@ -24,26 +25,22 @@ let tl = gsap.timeline()
 gltfLoader.load('luciphone.gltf', (gltf) => {
     scene.add(gltf.scene)
 
-    gltf.scene.scale.set(0.8, 0.8, 0.8)
-    gltf.scene.rotation.set(5, 3.3, 5)
+    gltf.scene.scale.set(0.9, 0.9, 0.9)
+    gltf.scene.rotation.set(11, 5, 6)
     scene.add(gltf.scene)
 
-    gui.add(gltf.scene.rotation, 'x').min(0).max(9)
-    gui.add(gltf.scene.rotation, 'y').min(0).max(9)
-    gui.add(gltf.scene.rotation, 'z').min(0).max(9)
+    gui.add(gltf.scene.rotation, 'x').min(0).max(11)
+    gui.add(gltf.scene.rotation, 'y').min(0).max(11)
+    gui.add(gltf.scene.rotation, 'z').min(0).max(11)
 
-    gui.add(gltf.scene.position, 'y').min(0).max(9)
-    gui.add(gltf.scene.position, 'x').min(0).max(9)
-    gui.add(gltf.scene.position, 'z').min(0).max(5)
+    gui.add(gltf.scene.position, 'y').min(0).max(11)
+    gui.add(gltf.scene.position, 'x').min(0).max(11)
+    gui.add(gltf.scene.position, 'z').min(-10).max(11)
 
     tl.to(gltf.scene.rotation, { y:  4.8, duration: 1})
-    tl.to(gltf.scene.scale, { x:  0.3, y: 0.3, z: 0.3, duration: 1}, "-=1")
-    tl.to(gltf.scene.position, { x:  .5, duration: 1})
-    tl.to(gltf.scene.rotation, { y:  11, duration: 1})
+    tl.to(gltf.scene.position, { x:  .1, duration: 1})
 
 })
-
-
 
 // // Objects
 // const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
@@ -61,11 +58,24 @@ gltfLoader.load('luciphone.gltf', (gltf) => {
 
 // Lights
 
-const pointLight = new THREE.AmbientLight(0xffffff, 10)
-pointLight.position.x = 2
-pointLight.position.y = 6
-pointLight.position.z = 10
-scene.add(pointLight)
+const firstLight = new THREE.AmbientLight(0xffffff, 1)
+const secondLight = new THREE.PointLight(0x00509f, 4)
+const treeLight = new THREE.PointLight(0xffff90, 4)
+
+firstLight.position.x = 1
+firstLight.position.y = 2
+firstLight.position.z = 1
+scene.add(firstLight)
+
+secondLight.position.x = 1
+secondLight.position.y = 10
+secondLight.position.z = 1
+scene.add(secondLight)
+
+treeLight.position.x = 10
+treeLight.position.y = 1
+treeLight.position.z = 1
+scene.add(treeLight)
 
 /**
  * Sizes
