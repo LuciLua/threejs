@@ -25,8 +25,8 @@ let tl = gsap.timeline()
 gltfLoader.load('luciphone.gltf', (gltf) => {
     scene.add(gltf.scene)
 
-    gltf.scene.scale.set(0.9, 0.9, 0.9)
-    gltf.scene.rotation.set(11, 5, 6)
+    gltf.scene.scale.set(1, 1, 1)
+    gltf.scene.rotation.set(6.3, 11, 6.3)
     scene.add(gltf.scene)
 
     gui.add(gltf.scene.rotation, 'x').min(0).max(11)
@@ -37,45 +37,60 @@ gltfLoader.load('luciphone.gltf', (gltf) => {
     gui.add(gltf.scene.position, 'x').min(0).max(11)
     gui.add(gltf.scene.position, 'z').min(-10).max(11)
 
-    tl.to(gltf.scene.rotation, { y:  4.8, duration: 1})
-    tl.to(gltf.scene.position, { x:  .1, duration: 1})
+    tl.to(gltf.scene.position, { x:  0.5, duration: 1})
+    // tl.to(gltf.scene.rotation, { y: 105, duration: 200})
+
+    window.addEventListener('keydown', event =>{
+   
+        if(event.key == 'w'){
+            gltf.scene.position.x++
+        }
+        
+        if(event.key == 's'){
+            gltf.scene.position.x--
+        }
+    
+        if(event.key == 'a'){
+            gltf.scene.rotation.y++
+        }
+        if(event.key == 'd'){
+            gltf.scene.rotation.y--
+        }
+    
+    })
+    
 
 })
 
-// // Objects
-// const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
+// Objects
+const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
 
-// // Materials
+// Materials
 
-// const material = new THREE.MeshBasicMaterial()
-// material.color = new THREE.Color(0xff0000)
+const material = new THREE.MeshBasicMaterial()
+material.color = new THREE.Color(0x00fff0)
 
-// // Mesh
-// const sphere = new THREE.Mesh(geometry,material)
-// scene.add(sphere)
-
-
+// Mesh
+const sphere = new THREE.Mesh(geometry,material)
+scene.add(sphere)
 
 // Lights
 
 const firstLight = new THREE.AmbientLight(0xffffff, 1)
-const secondLight = new THREE.PointLight(0x00509f, 4)
-const treeLight = new THREE.PointLight(0xffff90, 4)
+const secondLight = new THREE.PointLight(0x0f509f, 10)
 
 firstLight.position.x = 1
-firstLight.position.y = 2
+firstLight.position.y = 1
 firstLight.position.z = 1
+firstLight.intensity = 15
 scene.add(firstLight)
 
-secondLight.position.x = 1
+secondLight.position.x = 50
 secondLight.position.y = 10
 secondLight.position.z = 1
-scene.add(secondLight)
+secondLight.intensity = 1
 
-treeLight.position.x = 10
-treeLight.position.y = 1
-treeLight.position.z = 1
-scene.add(treeLight)
+scene.add(secondLight)
 
 /**
  * Sizes
@@ -84,6 +99,16 @@ const sizes = {
     width: window.innerWidth,
     height: window.innerHeight
 }
+
+window.addEventListener('keydown', event =>{
+    if(event.key == 1){
+        secondLight.intensity = 100
+    }
+    if(event.key == 2){
+        secondLight.intensity = 10
+    }
+
+})
 
 window.addEventListener('resize', () =>
 {
@@ -107,7 +132,7 @@ window.addEventListener('resize', () =>
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
 camera.position.x = 0
 camera.position.y = 0
-camera.position.z = 5
+camera.position.z = 8
 scene.add(camera)
 
 // Controls
