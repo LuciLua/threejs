@@ -3,6 +3,7 @@ import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import gsap from 'gsap'
 
 const gltfLoader = new GLTFLoader()
 
@@ -15,17 +16,31 @@ const canvas = document.querySelector('canvas.webgl')
 // Scene
 const scene = new THREE.Scene()
 
+let tl = gsap.timeline()
+
+
 // Luci Phone
 
 gltfLoader.load('luciphone.gltf', (gltf) => {
     scene.add(gltf.scene)
 
-    gltf.scene.scale.set(0.3, 0.3, 0.3)
-    gltf.scene.rotation.set(5, 5, 5)
+    gltf.scene.scale.set(0.8, 0.8, 0.8)
+    gltf.scene.rotation.set(5, 3.3, 5)
+    scene.add(gltf.scene)
 
     gui.add(gltf.scene.rotation, 'x').min(0).max(9)
     gui.add(gltf.scene.rotation, 'y').min(0).max(9)
     gui.add(gltf.scene.rotation, 'z').min(0).max(9)
+
+    gui.add(gltf.scene.position, 'y').min(0).max(9)
+    gui.add(gltf.scene.position, 'x').min(0).max(9)
+    gui.add(gltf.scene.position, 'z').min(0).max(5)
+
+    tl.to(gltf.scene.rotation, { y:  4.8, duration: 1})
+    tl.to(gltf.scene.scale, { x:  0.3, y: 0.3, z: 0.3, duration: 1}, "-=1")
+    tl.to(gltf.scene.position, { x:  .5, duration: 1})
+    tl.to(gltf.scene.rotation, { y:  11, duration: 1})
+
 })
 
 
@@ -49,7 +64,7 @@ gltfLoader.load('luciphone.gltf', (gltf) => {
 const pointLight = new THREE.AmbientLight(0xffffff, 10)
 pointLight.position.x = 2
 pointLight.position.y = 6
-pointLight.position.z = 6
+pointLight.position.z = 10
 scene.add(pointLight)
 
 /**
@@ -82,7 +97,7 @@ window.addEventListener('resize', () =>
 const camera = new THREE.PerspectiveCamera(75, sizes.width / sizes.height, 0.1, 100)
 camera.position.x = 0
 camera.position.y = 0
-camera.position.z = 3
+camera.position.z = 5
 scene.add(camera)
 
 // Controls
