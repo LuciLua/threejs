@@ -22,22 +22,23 @@ let tl = gsap.timeline()
 
 // Luci Phone
 
+// gltfLoader.load('predioexport.gltf', (gltf) => {
 gltfLoader.load('luciphone.gltf', (gltf) => {
     scene.add(gltf.scene)
 
-    gltf.scene.scale.set(1, 1, 1)
     gltf.scene.rotation.set(6.3, 11, 6.3)
+    gltf.scene.position.set(0, 0, -3)
     scene.add(gltf.scene)
 
-    gui.add(gltf.scene.rotation, 'x').min(0).max(11)
-    gui.add(gltf.scene.rotation, 'y').min(0).max(11)
-    gui.add(gltf.scene.rotation, 'z').min(0).max(11)
+    gui.add(gltf.scene.rotation, 'x').min(-15).max(15)
+    gui.add(gltf.scene.rotation, 'y').min(-15).max(15)
+    gui.add(gltf.scene.rotation, 'z').min(-15).max(15)
 
-    gui.add(gltf.scene.position, 'y').min(0).max(11)
-    gui.add(gltf.scene.position, 'x').min(0).max(11)
-    gui.add(gltf.scene.position, 'z').min(-10).max(11)
+    gui.add(gltf.scene.position, 'y').min(-15).max(15)
+    gui.add(gltf.scene.position, 'x').min(-15).max(15)
+    gui.add(gltf.scene.position, 'z').min(-15).max(15)
 
-    tl.to(gltf.scene.position, { x:  0.5, duration: 1})
+    // tl.to(gltf.scene.position, { x:  0.5, duration: 1})
     // tl.to(gltf.scene.rotation, { y: 105, duration: 200})
 
     window.addEventListener('keydown', event =>{
@@ -51,10 +52,10 @@ gltfLoader.load('luciphone.gltf', (gltf) => {
         }
     
         if(event.key == 'a'){
-            gltf.scene.rotation.y++
+            gltf.scene.rotation.y += 0.05
         }
         if(event.key == 'd'){
-            gltf.scene.rotation.y--
+            gltf.scene.rotation.y -= 0.05
         }
     
     })
@@ -74,6 +75,8 @@ material.color = new THREE.Color(0x00fff0)
 const sphere = new THREE.Mesh(geometry,material)
 scene.add(sphere)
 
+sphere.position.set(0,10,-10)
+
 // Lights
 
 const firstLight = new THREE.AmbientLight(0xffffff, 1)
@@ -82,7 +85,7 @@ const secondLight = new THREE.PointLight(0x0f509f, 10)
 firstLight.position.x = 1
 firstLight.position.y = 1
 firstLight.position.z = 1
-firstLight.intensity = 15
+firstLight.intensity = 1
 scene.add(firstLight)
 
 secondLight.position.x = 50
@@ -102,10 +105,24 @@ const sizes = {
 
 window.addEventListener('keydown', event =>{
     if(event.key == 1){
-        secondLight.intensity = 100
+        secondLight.intensity++
     }
     if(event.key == 2){
-        secondLight.intensity = 10
+        secondLight.intensity--
+    }
+
+    if(event.key == 3){
+        firstLight.intensity++
+    }
+    if(event.key == 4){
+        firstLight.intensity--
+    }
+
+    if(event.key == 5){
+        secondLight.position.y++
+    }
+    if(event.key == 6){
+        secondLight.position.y--
     }
 
 })
