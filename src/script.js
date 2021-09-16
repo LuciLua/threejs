@@ -44,60 +44,85 @@ gltfLoader.load('luciphone.gltf', (gltf) => {
     window.addEventListener('keydown', event =>{
    
         if(event.key == 'w'){
-            gltf.scene.position.x++
+            gltf.scene.position.y += 0.3
         }
         
         if(event.key == 's'){
-            gltf.scene.position.x--
+            gltf.scene.position.y -= 0.3
         }
     
         if(event.key == 'a'){
-            gltf.scene.rotation.y += 0.1
+            gltf.scene.rotation.y -= 0.3
         }
         if(event.key == 'd'){
-            gltf.scene.rotation.y -= 0.1
+            gltf.scene.rotation.y += 0.3
         }
     
     })
     
-
 })
 
 // Objects
-const geometry = new THREE.TorusGeometry( .7, .2, 16, 100 );
+const geometry = new THREE.PlaneBufferGeometry( 3,3,64,64); //plano
+const geometrySphere = new THREE.TorusBufferGeometry( 3,3,64,64); // torus
 
 // Materials
 
 const material = new THREE.MeshBasicMaterial()
-material.color = new THREE.Color(0x00fff0)
+material.color = new THREE.Color(0x602aff) //roxo
+
+
+// Textures loader
+
+const loader = new THREE.TextureLoader()
+
+// Texture
+
+const texture = loader.load('/luciphone.png')
+
+
+const materialTransparente = new THREE.MeshStandardMaterial({
+    color: '#ff00ff02',
+    map: texture,
+})
+
 
 // Mesh
-const sphere = new THREE.Mesh(geometry,material)
+const plane = new THREE.Mesh(geometry, materialTransparente)
+scene.add(plane)
+const sphere = new THREE.Mesh(geometrySphere,material)
 scene.add(sphere)
 
 sphere.position.set(0,10,-10)
+sphere.rotation.set(0,5,6)
+sphere.scale.set(0.5,0.5,0.5)
+
+plane.rotation.set(99,0,0)
+plane.position.set(0,-3.8,-2)
+
+
 
 // Lights
 
-const firstLight = new THREE.AmbientLight(0xffffff, 1)
-const secondLight = new THREE.PointLight(0x0f509f, 10)
+const firstLight = new THREE.AmbientLight(0xffffff)
+const secondLight = new THREE.PointLight(0x0a509f, 10)
 
 firstLight.position.x = 1
 firstLight.position.y = 1
 firstLight.position.z = 1
-firstLight.intensity = 1
+firstLight.intensity = 10
 scene.add(firstLight)
 
 secondLight.position.x = 50
 secondLight.position.y = 10
 secondLight.position.z = 1
-secondLight.intensity = 1
+secondLight.intensity = 3
 
 scene.add(secondLight)
 
-/**
- * Sizes
- */
+
+// Sizes
+
 const sizes = {
     width: window.innerWidth,
     height: window.innerHeight
