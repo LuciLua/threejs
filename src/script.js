@@ -52,10 +52,10 @@ gltfLoader.load('luciphone.gltf', (gltf) => {
         }
     
         if(event.key == 'a'){
-            gltf.scene.rotation.y += 0.05
+            gltf.scene.rotation.y += 0.1
         }
         if(event.key == 'd'){
-            gltf.scene.rotation.y -= 0.05
+            gltf.scene.rotation.y -= 0.1
         }
     
     })
