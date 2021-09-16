@@ -10,7 +10,7 @@ body
 {
     height: 100vh;
     font-family: 'Poppins';
-    background: linear-gradient(rgb(45, 46, 53), #000);
+    background: linear-gradient(rgb(33, 41, 43), rgb(0, 107, 230));
 
     display: flex;
     /* justify-content: center; */
