@@ -1,6 +1,6 @@
 # Preview
 
-<img src="screenshot-rocks.png">
+<img src="img.png">
 
 # Three.js Starter
 Courtesy of Bruno Simon of https://threejs-journey.xyz/
